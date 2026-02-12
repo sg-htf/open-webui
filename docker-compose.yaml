@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: sghtf/lahuta-ui
-    container_name: lahuta-ui
+    container_name: lahuta-ui-0.0.1
     volumes:
       - lahuta-ui:/app/backend/data
     depends_on:
