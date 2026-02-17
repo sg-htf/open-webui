@@ -38,37 +38,40 @@ const createIsLoadingStore = (i18n: i18nType) => {
 };
 
 export const initI18n = (defaultLocale?: string | undefined) => {
-	const detectionOrder = defaultLocale
-		? ['querystring', 'localStorage']
-		: ['querystring', 'localStorage', 'navigator'];
-	const fallbackDefaultLocale = defaultLocale ? [defaultLocale] : ['al-AL'];
+    const detectionOrder = defaultLocale
+        ? ['querystring', 'localStorage']
+        : ['querystring', 'localStorage', 'navigator'];
+    
+    // Ndryshuar nga 'al-AL' në 'sq' (ose 'sq-AL' sipas emërtimit të dosjeve tuaja)
+    const fallbackDefaultLocale = defaultLocale ? [defaultLocale] : ['sq'];
 
-	const loadResource = (language: string, namespace: string) =>
-		import(`./locales/${language}/${namespace}.json`);
+    const loadResource = (language: string, namespace: string) =>
+        import(`./locales/${language}/${namespace}.json`);
 
-	i18next
-		.use(resourcesToBackend(loadResource))
-		.use(LanguageDetector)
-		.init({
-			debug: false,
-			detection: {
-				order: detectionOrder,
-				caches: ['localStorage'],
-				lookupQuerystring: 'lang',
-				lookupLocalStorage: 'locale'
-			},
-			fallbackLng: {
-				default: fallbackDefaultLocale
-			},
-			ns: 'translation',
-			returnEmptyString: false,
-			interpolation: {
-				escapeValue: false // not needed for svelte as it escapes by default
-			}
-		});
+    i18next
+        .use(resourcesToBackend(loadResource))
+        .use(LanguageDetector)
+        .init({
+            debug: false,
+            lng: defaultLocale || 'sq', // Detyron përdorimin e shqipes nëse nuk ka defaultLocale
+            detection: {
+                order: detectionOrder,
+                caches: ['localStorage'],
+                lookupQuerystring: 'lang',
+                lookupLocalStorage: 'locale'
+            },
+            fallbackLng: {
+                default: fallbackDefaultLocale
+            },
+            ns: 'translation',
+            returnEmptyString: false,
+            interpolation: {
+                escapeValue: false // nuk nevojitet për svelte pasi i bën escape vetë
+            }
+        });
 
-	const lang = i18next?.language || defaultLocale || 'al-AL';
-	document.documentElement.setAttribute('lang', lang);
+    const lang = i18next?.language || defaultLocale || 'sq';
+    document.documentElement.setAttribute('lang', lang);
 };
 
 const i18n = createI18nStore(i18next);
