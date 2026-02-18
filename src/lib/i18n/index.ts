@@ -53,7 +53,7 @@ export const initI18n = (defaultLocale?: string | undefined) => {
         .use(LanguageDetector)
         .init({
             debug: false,
-            lng: defaultLocale || 'sq', // Detyron përdorimin e shqipes nëse nuk ka defaultLocale
+            lng: defaultLocale || 'sq-AL', // Detyron përdorimin e shqipes nëse nuk ka defaultLocale
             detection: {
                 order: detectionOrder,
                 caches: ['localStorage'],
@@ -70,7 +70,7 @@ export const initI18n = (defaultLocale?: string | undefined) => {
             }
         });
 
-    const lang = i18next?.language || defaultLocale || 'sq';
+    const lang = i18next?.language || defaultLocale || 'sq-AL';
     document.documentElement.setAttribute('lang', lang);
 };
 
