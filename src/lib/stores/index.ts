@@ -7,7 +7,7 @@ import type { Socket } from 'socket.io-client';
 import emojiShortCodes from '$lib/emoji-shortcodes.json';
 
 // Backend
-export const WEBUI_NAME = writable("Lahuta"); // APP_NAME is the name of the application i gjetur ne .env
+export const WEBUI_NAME = writable("Lahuta");
 
 export const WEBUI_VERSION = writable(null);
 export const WEBUI_DEPLOYMENT_ID = writable(null);
